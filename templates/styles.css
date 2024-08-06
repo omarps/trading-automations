@@ -1,0 +1,66 @@
+body {
+    font-family: 'Helvetica', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+    /* font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji",
+            Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif,
+            LastResort; */
+    height: auto;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.graphs {}
+
+.graphs-screenshots {
+    display: flex;
+    flex: 50%;
+    padding: 20px;
+}
+
+.graphs--title h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.graphs--subtitle h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.graphs--graph--single-page img {
+    width: 100%;
+    height: auto;
+}
+
+.graphs--graph--full-90deg img {
+    width: 75%;
+    height: auto;
+}
+
+.graphs--graph--two-per-page img {
+    width: 70%;
+    height: auto;
+}
+
+.graphs--graph--two-screenshots {
+}
+
+.graphs--graph--two-screenshots img {
+    width: 60%;
+    height: auto;
+    padding: 10px;
+}
+
+.graphs--graph--gammas img {
+    width: 75%;
+    height: auto;
+}
+
+/* @media print { */
+.pagebreak { page-break-before: always; } /* page-break-after works, as well */
+/* } */

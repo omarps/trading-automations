@@ -1,0 +1,32 @@
+# format
+SPY:
+  date: 20240716
+  folders:
+    - graphs: # graphs folder
+        - SPY_v1d_2024-07-16_16-38-18_86ca7.png # v1d part
+        - SPY_ichim_2024-07-16_16-38-18_86ca7.png # ichim part
+        - SPY_v5m_2024-07-16_16-38-18_86ca7.png # v5m part
+        - SPY_v1m_2024-07-16_16-38-18_86ca7.png # v1m part
+    - gammas # gammas folder
+    - options: #options folder
+        - 20240716C563 # option 1 folder
+        - 20240716C563 # option 2 folder
+
+# output
+title: SPY 2024-07-16
+sections:
+  - graphs:
+      - v1d: { image path to v1d }
+      - ichim: { image path to ichim }
+      - v5m: { image path to v5m }
+      - v1m: { image path to v1m }
+  - gammas:
+      - { image pah to gamma 1 }
+      - { image pah to gamma 2 }
+  - options:
+      - 20240716C563: # option 1
+          - { image pah to option 1 - 1 }
+          - { image pah to option 1 - 2 }
+      - 20240716C564: # option 2
+          - { image pah to option 2 - 1 }
+          - { image pah to option 2 - 2 }

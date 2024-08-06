@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{section_name}}</title>
+  </head>
+  <body>
+    <h1>{{ticker}} Graphs</h1>
+
+    <div class="container">
+      {% for graph in data %}
+        <div class="graphs">
+          <div class="graphs--title">
+            <h2>{{graph.image_name}}</h2>
+          </div>
+          <div class="graphs--graph--{{graph.class_name}}">
+            <img alt="{{graph.image_name}}" src="{{graph.image_path}}" />
+          </div>
+        </div>
+
+        {% if not loop.last %}
+          <div class="pagebreak"></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </body>
+</html>

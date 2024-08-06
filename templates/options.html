@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contratos</title>
+  </head>
+  <body>
+    <h1>{{ticker}} Contratos</h1>
+
+    <div class="container">
+      {% for option in data %}
+        <div class="graphs">
+          <div class="graphs--title">
+            <h2>{{option.name}}</h2>
+          </div>
+          {% for index, option_image in enumerate(option.option_images) %}
+            <div class="graphs--subtitle">
+              <h3>{{option_image.image_name}}</h3>
+            </div>
+            <div class="graphs--graph--two-per-page">
+              <img
+                alt="{{option_image.image_name}}"
+                src="{{option_image.image_path}}"
+              />
+            </div>
+            {% if (index + 1) % 2 == 0 and not loop.last %}
+              <div class="pagebreak"></div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% if not loop.last %}
+          <div class="pagebreak"></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </body>
+</html>
