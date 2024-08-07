@@ -1,5 +1,6 @@
 import re
 
+
 def extract_contract_titles(md_file_path):
     # Read the Markdown file
     with open(md_file_path, 'r', encoding='utf-8') as file:

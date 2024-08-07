@@ -4,6 +4,8 @@ import datetime
 import shutil
 from PIL import Image
 
+
+# rename.py
 def _rename_graph_files(base_path, ticker="SPY", dry_run=True):
     folder_path = os.path.join(base_path, 'graficos')
     # Iterate over each directory in the base path
@@ -39,6 +41,7 @@ def _rename_graph_files(base_path, ticker="SPY", dry_run=True):
                 # Rename the file
                 os.rename(original_filepath, new_filepath)
                 print(f"Renamed: {original_filepath} to {new_filepath}")
+
 
 def _rename_option_contracts_files(base_path, ticker="SPY", dry_run=True):
     folder_path = os.path.join(base_path, 'contratos')
@@ -77,6 +80,7 @@ def _rename_option_contracts_files(base_path, ticker="SPY", dry_run=True):
                         # Rename the file
                         os.rename(original_filepath, new_filepath)
                         print(f"Renamed: {original_filepath} to {new_filepath}")
+
 
 def _rename_gamma_files(base_path, ticker="SPY", dry_run=True):
     folder_path = os.path.join(base_path, 'gammas')
@@ -124,6 +128,7 @@ def _rename_gamma_files(base_path, ticker="SPY", dry_run=True):
                 os.rename(original_filepath, new_filepath)
                 print(f"Renamed: {original_filepath} to {new_filepath}")
 
+
 def _rename_screenshot_files(base_path, ticker="SPY", dry_run=True):
     folder_path = os.path.join(base_path, 'screenshots')
     # Iterate over each file in the folder
@@ -163,6 +168,7 @@ def _rename_screenshot_files(base_path, ticker="SPY", dry_run=True):
                 os.rename(original_filepath, new_filepath)
                 print(f"Renamed: {original_filepath} to {new_filepath}")
 
+
 def rename_files_in_folders(base_path, ticker="SPY", dry_run=True):
     print("Renaming files in folders")
 
@@ -178,12 +184,15 @@ def rename_files_in_folders(base_path, ticker="SPY", dry_run=True):
     # Rename screenshot files
     _rename_screenshot_files(base_path, ticker, dry_run)
 
+
+# move.py
 def move_or_copy_files(input_path, output_path, operation="copy"):
     if operation == "move":
         # TODO: fix move pdt contents only
         shutil.move(input_path, output_path)
     else:
         shutil.copytree(input_path, output_path, dirs_exist_ok=True)
+
 
 def _flatten_graph_folder(output_path):
     graficos_folder = os.path.join(output_path, "graficos")
@@ -207,6 +216,7 @@ def _flatten_graph_folder(output_path):
                 # delete dir
                 shutil.rmtree(file_path)
 
+
 # TODO: review move option
 def move_and_restructure(input_path, base_path, date, operation="copy"):
     print(f"Moving and restructuring files: {operation}")
@@ -224,6 +234,8 @@ def move_and_restructure(input_path, base_path, date, operation="copy"):
 
     print(f"Folder structure moved and restructured at: {full_output_path}")
 
+
+# resources.py
 def rotate_image(input_path, output_path, angle=-90):
     """Rotate the given image and save it to the output path."""
     with Image.open(input_path) as img:
