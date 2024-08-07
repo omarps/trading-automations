@@ -19,6 +19,9 @@ emoticon_to_unicode = {
 	"🛋️": "\U0001F6CB",  # Sofa emoji
 	"💸": "\U0001F4B8",  # Money flying emoji
 	"🔥": "\U0001F525",  # Fire emoji
+	"🧲": "\U0001F9F2",  # Magnet emoji
+	"💩": "\U0001F4A9",  # Pile of Poo emoji
+	"🎯": "\U0001F3AF",  # Bullseye emoji
 	"🐦‍⬛": "\U0001F426\U0000200D\U0001F3FB",  # Black bird emoji
 	"🇰🇷": "\U0001F1F0\U0001F1F7", # Korean flag emoji
 	"🇵🇪": "\U0001F1F5\U0001F1EA", # Peru flag emoji

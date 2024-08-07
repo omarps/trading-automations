@@ -9,6 +9,7 @@ Fecha: {{date}}
 - VIX:
 - VWAP:
 - Gamma:
+- Fibo:
 
 ## APM
 
