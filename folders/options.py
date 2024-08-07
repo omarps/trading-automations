@@ -1,8 +1,12 @@
 import os
 import sys
 from datetime import datetime
-from folders.utils import _create_or_clear_folder
+from dotenv import load_dotenv
+from folders.utils import create_or_clear_folder
 from md.md_utils import extract_contract_titles
+
+
+load_dotenv()
 
 
 def create_folder_structure(base_path, date):
@@ -23,12 +27,12 @@ def create_folder_structure(base_path, date):
     # Create the folder structure
     for folder in folder_structure:
         folder_path = os.path.join(base_path, folder)
-        _create_or_clear_folder(folder_path)
+        create_or_clear_folder(folder_path)
 
         if folder == "graficos":
             for graph in graphs_structure:
                 graph_path = os.path.join(folder_path, graph)
-                _create_or_clear_folder(graph_path)
+                create_or_clear_folder(graph_path)
 
     # Find any MD file and remove them.
     for file in os.listdir(base_path):
@@ -54,7 +58,7 @@ def add_options_folders(input_path, date, ticker):
     sorted_folders = list(map(lambda title: title.lstrip('.'), sorted_folders))
 
     options_path = os.path.join(input_path, "contratos")
-    _create_or_clear_folder(options_path)
+    create_or_clear_folder(options_path)
 
     for option_folder in sorted_folders:
         option_path = os.path.join(options_path, option_folder)

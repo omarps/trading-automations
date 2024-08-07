@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-def _create_or_clear_folder(folder_path):
+def create_or_clear_folder(folder_path):
     if not os.path.exists(folder_path):
         # create folder
         os.makedirs(folder_path)
