@@ -2,8 +2,8 @@ import os
 import sys
 from datetime import datetime
 from dotenv import load_dotenv
-from pdt.resources import rename_files_in_folders, move_and_restructure
-
+from resources.rename import rename_files_in_folders
+from resources.move import move_and_restructure
 
 load_dotenv()
 
