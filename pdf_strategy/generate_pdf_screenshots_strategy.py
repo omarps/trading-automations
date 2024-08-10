@@ -25,9 +25,4 @@ class GeneratePDFScreenshotsStrategy(PDFGenerationStrategy):
 
         html_text = self._render_html_text(self.section_name, screenshot_array)
 
-        # # Write the HTML text to the file
-        # output_file_path = os.path.join(self.full_path, "screenshots.html")
-        # with open(output_file_path, "w", encoding="utf-8") as file:
-        #     file.write(html_text)
-
         self._write_pdf_file(html_text)

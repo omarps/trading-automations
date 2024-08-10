@@ -4,11 +4,31 @@ from resources.images import rotate_image
 
 
 class GeneratePDFGraphsStrategy(PDFGenerationStrategy):
+    """
+    Class for generating PDF reports from graph images.
+
+    This class extends the `PDFGenerationStrategy` to provide functionality for generating
+    PDF reports from graph images. It reads the graph image paths from a YAML file, processes
+    the images (including rotating them if necessary), and writes the images to a PDF file.
+    """
+
     def __init__(self):
+        """
+        Initializes the `GeneratePDFGraphsStrategy` instance and sets the section attributes to "graphs".
+        """
         super().__init__()
+        # TODO: extract graphs contstants
         self.set_section_attributes('graphs', 'graficos')
 
     def generate(self, base_path, date, ticker):
+        """
+        Generates the PDF from the graph images.
+
+        Args:
+            base_path (str): The base path where the graph images are located.
+            date (str): The date associated with the file.
+            ticker (str): The ticker symbol associated with the file.
+        """
         super().generate(base_path, date, ticker)
 
         # Read YAML file

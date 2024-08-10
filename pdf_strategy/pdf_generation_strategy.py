@@ -2,7 +2,7 @@ import os
 import yaml
 import pdfkit
 from abc import ABC, abstractmethod
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, TemplateError
 
 
 class PDFGenerationStrategy(ABC):
@@ -132,15 +132,22 @@ class PDFGenerationStrategy(ABC):
             KeyError: If the specified section is not found in the data.
             TemplateError: If there is an error in the HTML template rendering process.
         """
-        # Method implementation here
-        templates_path = os.path.join(os.path.dirname(__file__), "../templates")
-        env = Environment(loader=FileSystemLoader(templates_path))
-        template = env.get_template(f"{section_name}.html")
+        try:
+            # Method implementation here
+            templates_path = os.path.join(os.path.dirname(__file__), "../templates")
+            env = Environment(loader=FileSystemLoader(templates_path))
+            template = env.get_template(f"{section_name}.html")
 
-        # Render the template with the graphs variable
-        html_text = template.render(ticker=self.ticker, section_name=section_name, data=data, enumerate=enumerate)
-        return html_text
+            # Render the template with the graphs variable
+            html_text = template.render(ticker=self.ticker, section_name=section_name, data=data, enumerate=enumerate)
+            return html_text
+        except KeyError as e:
+            print(f"KeyError: {e} - The section '{section_name}' was not found in the data.")
+            raise
+        except TemplateError as e:
+            print(f"TemplateError: {e} - There was an error rendering the template for section '{section_name}'.")
 
+    # TODO: Add error handling for PDF file writing
     def _write_pdf_file(self, html_text):
         """
         Writes the provided HTML text to a PDF file.
