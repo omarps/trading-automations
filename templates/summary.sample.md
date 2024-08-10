@@ -17,7 +17,11 @@ Fecha: {{date}}
 - APM:
 - Earnings:
 - PT:
-- DN:
+- UG/DN:
+
+## Midday
+
+## Closing
 
 ## Notas
 
