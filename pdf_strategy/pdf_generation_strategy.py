@@ -163,4 +163,4 @@ class PDFGenerationStrategy(ABC):
         # Generate the PDF file
         pdfkit.from_string(html_text, os.path.join(self.full_path, self.pdf_filename), options=options)
         # Print the PDF file name
-        print(f"MD PDF File: {self.pdf_filename}")
+        print(f"PDF File: {self.pdf_filename}")

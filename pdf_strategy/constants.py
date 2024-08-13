@@ -23,6 +23,10 @@ emoticon_to_unicode = {
 	"🧠": "\U0001F9E0",  # Brain emoji
 	"🚀": "\U0001F680",  # Rocket emoji
 	"🔄": "\U0001F504",  # Refresh emoji
+	"🎁": "\U0001F381",  # Gift emoji
+	"🌐": "\U0001F310",  # World emoji
+	"🧑‍🦯": "\U0001F9CF",  # Blind emoji
+	"🐳": "\U0001F433",  # Whale emoji
 	"🐦‍⬛": "\U0001F426\U0000200D\U0001F3FB",  # Black bird emoji
 	"🇰🇷": "\U0001F1F0\U0001F1F7", # Korean flag emoji
 	"🇵🇪": "\U0001F1F5\U0001F1EA", # Peru flag emoji
