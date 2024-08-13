@@ -2,8 +2,9 @@ import os
 import sys
 from dotenv import load_dotenv
 from datetime import datetime
-from reports.yamls import generate_yaml
-from reports.pdfs import generate_pdf
+
+from reports.pdf_report_generator import PDFReportGenerator
+from reports.yaml_report_generator import YamlReportGenerator
 
 
 load_dotenv()
@@ -23,9 +24,11 @@ def run():
     )
 
     if option == "1":
-        generate_yaml(base_path, date)
+        report_generator = YamlReportGenerator(base_path, date, ticker)
+        report_generator.generate_report()
     elif option == "2":
-        generate_pdf(base_path, date, ticker)
+        report_generator = PDFReportGenerator(base_path, date, ticker)
+        report_generator.generate_report()
     else:
         print("Invalid option. Exiting...")
 
