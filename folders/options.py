@@ -37,14 +37,14 @@ def create_folder_structure(base_path, date):
 
     # Find any MD file and remove them.
     for file in os.listdir(base_path):
-        if file.endswith(".utils"):
+        if file.endswith(".md"):
             os.remove(os.path.join(base_path, file))
 
     # Add a summary file to the folder
     # with name format SPY_{date}_summary.md
     # based on the summary.sample.utils file
     summary_file = os.path.join(base_path, f"SPY_{date}_summary.md")
-    sample_md = os.path.join(os.path.dirname(__file__), "../templates", "summary.sample.utils")
+    sample_md = os.path.join(os.path.dirname(__file__), "../templates", "summary.sample.md")
     with open(sample_md, "r") as f:
         content = f.read()
         content = content.replace("{{date}}", f"<u>{date}</u>")
