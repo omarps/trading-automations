@@ -1,9 +1,11 @@
 import os
 import markdown
+import shutil
 from dotenv import load_dotenv
 from PIL import Image, ImageDraw, ImageFont
 from pdf_strategy.pdf_generation_strategy import PDFGenerationStrategy
 from pdf_strategy.constants import emoticon_to_unicode
+from utils.constants import MD
 
 MODE_R = "r"
 ENCODING_UTF = "utf-8"
@@ -24,11 +26,10 @@ class GeneratePDFMdStrategy(PDFGenerationStrategy):
 
     def __init__(self):
         """
-        Initializes the `GeneratePDFMdStrategy` instance and sets the section attributes to "md".
+        Initializes the `GeneratePDFMdStrategy` instance and sets the section attributes to "utils".
         """
         super().__init__()
-        # TODO: extract md contstants
-        self.set_section_attributes("md")
+        self.set_section_attributes(MD)
 
     def generate(self, base_path, date, ticker):
         """
@@ -92,7 +93,10 @@ class GeneratePDFMdStrategy(PDFGenerationStrategy):
             draw.text((0, 0), unicode_char, font=font, fill="black")
 
             # Save the image
-            img_path = os.path.join(self.full_path, f"{unicode_char}.png")
+            img_folder = os.path.join(self.full_path, "emoji_images")
+            if not os.path.exists(img_folder):
+                os.makedirs(img_folder)
+            img_path = os.path.join(img_folder, f"{unicode_char}.png")
             image.save(img_path)
 
             # Return the HTML image tag
@@ -103,8 +107,8 @@ class GeneratePDFMdStrategy(PDFGenerationStrategy):
 
     def _remove_emoji_images(self):
         """
-        Removes temporary emoji image files from the directory.
+        Removes temporary emoji image folder.
         """
-        for img_file in os.listdir(self.full_path):
-            if img_file.endswith(".png"):
-                os.remove(os.path.join(self.full_path, img_file))
+        img_folder = os.path.join(self.full_path, "emoji_images")
+        if os.path.exists(img_folder):
+            shutil.rmtree(img_folder)

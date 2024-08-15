@@ -21,14 +21,14 @@ class TestPDFReportGenerator(unittest.TestCase):
         self.assertEqual(generator.base_path, self.base_path)
         self.assertEqual(generator.date, self.date)
         self.assertEqual(generator.ticker, self.ticker)
-        self.assertEqual(len(generator.strategies), 5)
+        self.assertEqual(len(generator.strategies), 6)
 
     @patch('reports.pdf_report_generator.PDFGeneratorContext')
     def test_process_report(self, MockPDFGeneratorContext):
         mock_context = MockPDFGeneratorContext.return_value
         generator = PDFReportGenerator(self.base_path, self.date, self.ticker)
         generator.process_report()
-        self.assertEqual(mock_context.generate_pdf.call_count, 5)
+        self.assertEqual(mock_context.generate_pdf.call_count, 6)
 
     @patch('reports.pdf_report_generator.PdfWriter')
     @patch('reports.pdf_report_generator.PdfReader')

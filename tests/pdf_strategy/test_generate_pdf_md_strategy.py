@@ -18,11 +18,12 @@ class TestGeneratePDFMdStrategy(unittest.TestCase):
             mock_remove_emoji_images.assert_called_once()
 
     @patch("os.path.join", return_value="fake_path")
-    @patch("os.remove")
-    def test_remove_emoji_images(self, mock_remove, mock_join):
+    @patch("os.path.exists", return_value=True)
+    @patch("shutil.rmtree")
+    def test_remove_emoji_images(self, mock_join, mock_exists, mock_rmtree):
         with patch("os.listdir", return_value=["emoji1.png", "emoji2.png"]):
             self.strategy._remove_emoji_images()
-            self.assertEqual(mock_remove.call_count, 2)
+            self.assertEqual(mock_rmtree.call_count, 1)
 
     @patch("os.path.join", return_value="fake_path")
     @patch("PIL.ImageFont.truetype", side_effect=OSError("cannot open resource"))

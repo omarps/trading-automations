@@ -3,7 +3,8 @@ import sys
 from datetime import datetime
 from dotenv import load_dotenv
 from folders.utils import create_or_clear_folder
-from md.md_utils import extract_contract_titles
+from utils.md import extract_contract_titles
+from utils.constants import *
 
 
 load_dotenv()
@@ -21,29 +22,29 @@ def create_folder_structure(base_path, date):
         os.makedirs(base_path)
 
     # Define the folder structure
-    folder_structure = ["graficos", "contratos", "gammas", "screenshots"]
-    graphs_structure = ["v1d", "ichim", "v5m", "v1m"]
+    folder_structure = [GRAFICOS, CONTRATOS, GAMMAS, SCREENSHOTS, OTHERS]
+    graphs_structure = [V1D, ICHIM, V5M, V1M]
 
     # Create the folder structure
     for folder in folder_structure:
         folder_path = os.path.join(base_path, folder)
         create_or_clear_folder(folder_path)
 
-        if folder == "graficos":
+        if folder == GRAFICOS:
             for graph in graphs_structure:
                 graph_path = os.path.join(folder_path, graph)
                 create_or_clear_folder(graph_path)
 
     # Find any MD file and remove them.
     for file in os.listdir(base_path):
-        if file.endswith(".md"):
+        if file.endswith(".utils"):
             os.remove(os.path.join(base_path, file))
 
     # Add a summary file to the folder
     # with name format SPY_{date}_summary.md
-    # based on the summary.sample.md file
+    # based on the summary.sample.utils file
     summary_file = os.path.join(base_path, f"SPY_{date}_summary.md")
-    sample_md = os.path.join(os.path.dirname(__file__), "../templates", "summary.sample.md")
+    sample_md = os.path.join(os.path.dirname(__file__), "../templates", "summary.sample.utils")
     with open(sample_md, "r") as f:
         content = f.read()
         content = content.replace("{{date}}", f"<u>{date}</u>")
@@ -57,7 +58,7 @@ def add_options_folders(input_path, date, ticker):
     sorted_folders = extract_contract_titles(os.path.join(input_path, f"SPY_{date}_summary.md"))
     sorted_folders = list(map(lambda title: title.lstrip('.'), sorted_folders))
 
-    options_path = os.path.join(input_path, "contratos")
+    options_path = os.path.join(input_path, CONTRATOS)
     create_or_clear_folder(options_path)
 
     for option_folder in sorted_folders:

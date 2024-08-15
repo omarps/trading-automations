@@ -1,6 +1,7 @@
 import os
 from pdf_strategy.pdf_generation_strategy import PDFGenerationStrategy
 from resources.images import rotate_image
+from utils.constants import GRAPHS, GRAFICOS
 
 
 class GeneratePDFGraphsStrategy(PDFGenerationStrategy):
@@ -17,8 +18,7 @@ class GeneratePDFGraphsStrategy(PDFGenerationStrategy):
         Initializes the `GeneratePDFGraphsStrategy` instance and sets the section attributes to "graphs".
         """
         super().__init__()
-        # TODO: extract graphs contstants
-        self.set_section_attributes('graphs', 'graficos')
+        self.set_section_attributes(GRAPHS, GRAFICOS)
 
     def generate(self, base_path, date, ticker):
         """

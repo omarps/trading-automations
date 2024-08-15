@@ -23,7 +23,8 @@ class TestYamlReportGenerator(unittest.TestCase):
                 {"graphs": []},
                 {"options": []},
                 {"gammas": []},
-                {"screenshots": []}
+                {"screenshots": []},
+                {"others": []}
             ]
         }
         self.assertEqual(self.report_generator.data, expected_data)

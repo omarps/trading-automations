@@ -5,6 +5,7 @@ emoticon_to_unicode = {
 	"🧘": "\U0001F9D8", # Meditation emoji
 	"🤦🏻‍♂️": "\U0001F926", # Facepalm emoji
 	"🐽": "\U0001F43D", # Pig nose emoji
+	"🐷": "\U0001F437", # Pig emoji
 	"🚩": "\U0001F6A9", # Red flag emoji
 	"💣": "\U0001F4A3", # Bomb emoji
 	"💀": "\U0001F480", # Skull emoji

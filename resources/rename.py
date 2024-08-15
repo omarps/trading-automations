@@ -165,6 +165,47 @@ def _rename_screenshot_files(base_path, ticker="SPY", dry_run=True):
                 os.rename(original_filepath, new_filepath)
                 print(f"Renamed: {original_filepath} to {new_filepath}")
 
+def _rename_other_files(base_path, ticker="SPY", dry_run=True):
+    # TODO: move to constants
+    # TODO: same logic that screenshots
+    folder_path = os.path.join(base_path, 'others')
+    # Iterate over each file in the folder
+    for file in sorted(os.listdir(folder_path)):
+        # Get the full file path
+        original_filepath = os.path.join(folder_path, file)
+
+        # Skip directories and only process files
+        if not os.path.isfile(original_filepath):
+            continue
+
+        # ignore .DS_Store files
+        if file.startswith("."):
+            continue
+
+        # Skip if filename contains the folder name already
+        if 'others' in file:
+            continue
+
+        # Define the regex pattern to match the date and time in the filename
+        pattern = r'IMG_(\d)'
+        match = re.match(pattern, file)
+
+        if match:
+            # get creation date from file
+            creation_time = os.path.getctime(original_filepath)
+            formatted_creation_time = datetime.datetime.fromtimestamp(creation_time).strftime("%Y-%m-%d_%H-%M-%S")
+            # Construct new filename
+            new_filename = f"{ticker}_other_{formatted_creation_time}_{file}"
+            new_filepath = os.path.join(folder_path, new_filename)
+
+            if dry_run:
+                # Print the proposed new filename
+                print(f"Would rename: {original_filepath} to {new_filepath}")
+            else:
+                # Rename the file
+                os.rename(original_filepath, new_filepath)
+                print(f"Renamed: {original_filepath} to {new_filepath}")
+
 
 def rename_files_in_folders(base_path, ticker="SPY", dry_run=True):
     print("Renaming files in folders")
@@ -180,3 +221,6 @@ def rename_files_in_folders(base_path, ticker="SPY", dry_run=True):
 
     # Rename screenshot files
     _rename_screenshot_files(base_path, ticker, dry_run)
+
+    # Rename other files
+    _rename_other_files(base_path, ticker, dry_run)

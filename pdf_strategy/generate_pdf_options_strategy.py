@@ -1,11 +1,12 @@
 import os
 from pdf_strategy.pdf_generation_strategy import PDFGenerationStrategy
+from utils.constants import OPTIONS, CONTRATOS
 
 
 class GeneratePDFOptionsStrategy(PDFGenerationStrategy):
     def __init__(self):
         super().__init__()
-        self.set_section_attributes('options', 'contratos')
+        self.set_section_attributes(OPTIONS, CONTRATOS)
 
     def generate(self, base_path, date, ticker):
         super().generate(base_path, date, ticker)

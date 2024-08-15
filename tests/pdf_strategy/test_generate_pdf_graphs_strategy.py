@@ -2,6 +2,8 @@ import os
 import unittest
 from unittest.mock import patch
 from pdf_strategy.generate_pdf_graphs_strategy import GeneratePDFGraphsStrategy
+from utils.constants import GRAPHS, GRAFICOS
+
 
 class TestGeneratePDFGraphsStrategy(unittest.TestCase):
 
@@ -9,8 +11,8 @@ class TestGeneratePDFGraphsStrategy(unittest.TestCase):
     def test_initialization(self, mock_super_init):
         mock_super_init.return_value = None
         strategy = GeneratePDFGraphsStrategy()
-        self.assertEqual(strategy.section_name, 'graphs')
-        self.assertEqual(strategy.folder_name, 'graficos')
+        self.assertEqual(strategy.section_name, GRAPHS)
+        self.assertEqual(strategy.folder_name, GRAFICOS)
 
     @patch('pdf_strategy.generate_pdf_graphs_strategy.PDFGenerationStrategy.generate')
     @patch('pdf_strategy.generate_pdf_graphs_strategy.GeneratePDFGraphsStrategy.get_yaml_data_by_section')
@@ -20,7 +22,7 @@ class TestGeneratePDFGraphsStrategy(unittest.TestCase):
     def test_generate(self, mock_write_pdf, mock_render_html, mock_rotate_image, mock_get_yaml, mock_super_generate):
         mock_super_generate.return_value = None
         mock_get_yaml.return_value = {
-            'graphs': ['graph1.png', 'graph2_v1m.png']
+            GRAPHS: ['graph1.png', 'graph2_v1m.png']
         }
         mock_render_html.return_value = '<html></html>'
 
@@ -29,7 +31,7 @@ class TestGeneratePDFGraphsStrategy(unittest.TestCase):
         strategy.generate('/base/path', '2023-10-01', 'TICKER')
 
         mock_super_generate.assert_called_once_with('/base/path', '2023-10-01', 'TICKER')
-        mock_get_yaml.assert_called_once_with('graphs')
+        mock_get_yaml.assert_called_once_with(GRAPHS)
         mock_rotate_image.assert_called_once_with('/test/path/graficos/graph2_v1m.png', '/test/path/graficos/graph2_v1m_rotated.png', -90)
         mock_render_html.assert_called_once()
         mock_write_pdf.assert_called_once_with('<html></html>')

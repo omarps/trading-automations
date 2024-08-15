@@ -1,8 +1,19 @@
 import os
 import yaml
 import pdfkit
+import inflect
+import string
 from abc import ABC, abstractmethod
 from jinja2 import Environment, FileSystemLoader, TemplateError
+
+
+# TODO: move to utils to reuse?
+def titleize_and_pluralize(section_name):
+    p = inflect.engine()
+    titleized = string.capwords(section_name)
+    # pluralized = p.plural(titleized)
+    # return pluralized
+    return titleized
 
 
 class PDFGenerationStrategy(ABC):
@@ -42,7 +53,7 @@ class PDFGenerationStrategy(ABC):
             folder_name (str, optional): The folder name for which the report is generated.
         """
         self.section_name = section_name
-        self.folder_name = folder_name
+        self.folder_name = folder_name if folder_name else section_name
 
     @abstractmethod
     def generate(self, base_path, date, ticker):
@@ -136,10 +147,21 @@ class PDFGenerationStrategy(ABC):
             # Method implementation here
             templates_path = os.path.join(os.path.dirname(__file__), "../templates")
             env = Environment(loader=FileSystemLoader(templates_path))
-            template = env.get_template(f"{section_name}.html")
+
+            # template if template exists if not use generic
+            if os.path.exists(os.path.join(templates_path, f"{section_name}.html")):
+                template = env.get_template(f"{section_name}.html")
+            else:
+                template = env.get_template("generic.html")
 
             # Render the template with the graphs variable
-            html_text = template.render(ticker=self.ticker, section_name=section_name, data=data, enumerate=enumerate)
+            html_text = template.render(
+                ticker=self.ticker,
+                section_name=section_name,
+                data=data,
+                enumerate=enumerate,
+                title=titleize_and_pluralize(section_name)
+            )
             return html_text
         except KeyError as e:
             print(f"KeyError: {e} - The section '{section_name}' was not found in the data.")
@@ -164,3 +186,9 @@ class PDFGenerationStrategy(ABC):
         pdfkit.from_string(html_text, os.path.join(self.full_path, self.pdf_filename), options=options)
         # Print the PDF file name
         print(f"PDF File: {self.pdf_filename}")
+
+    def summary_filename(self):
+        """
+        Provides the summary filename for the generated PDF report.
+        """
+        return "{}_{}_summary_{}.pdf".format(self.ticker, self.date, self.section_name)
