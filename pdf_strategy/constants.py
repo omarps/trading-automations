@@ -28,11 +28,16 @@ emoticon_to_unicode = {
 	"🌐": "\U0001F310",  # World emoji
 	"🧑‍🦯": "\U0001F9CF",  # Blind emoji
 	"🐳": "\U0001F433",  # Whale emoji
+	"📢": "\U0001F4E2",  # Speaker emoji
+	"🕷️": "\U0001F577",  # Spider emoji
+	"📊": "\U0001F4CA",  # Barchart emoji
+	"🥇": "\U0001F947",  # Gold medal emoji
 	"🐦‍⬛": "\U0001F426\U0000200D\U0001F3FB",  # Black bird emoji
 	"🇰🇷": "\U0001F1F0\U0001F1F7", # Korean flag emoji
 	"🇵🇪": "\U0001F1F5\U0001F1EA", # Peru flag emoji
 	"🇯🇵": "\U0001F1EF\U0001F1F5",  # Japan flag emoji
 	"🇺🇸": "\U0001F1FA\U0001F1F8",  # USA flag emoji
+	"🇨🇳": "\U0001F1E8\U0001F1F3",  # China flag emoji
 	"👁️‍🗨️": "\U0001F441\U0000200D\U0001F5E8", # Witness emoji
 	"☕️": "\u2615\ufe0f",  # Coffee emoji
 	"🏆": "\U0001F3C6"  # Trophy emoji
