@@ -4,10 +4,28 @@ from rename_strategy.renamer_strategy import RenamerStrategy
 
 
 class BaseRenamer(Renamer):
+    """
+    This class is responsible for renaming files in a given folder structure using a specific strategy.
+
+    Attributes:
+        strategy (RenamerStrategy): The strategy to be used in the renaming process
+    """
+
     def __init__(self, strategy: RenamerStrategy):
         super().__init__(strategy)
 
     def rename_files(self, base_path, ticker='SPY', dry_run=True):
+        """
+        This method renames files in a given folder structure using the specified strategy.
+
+        Args:
+            base_path (str): The base path where the files are located.
+            ticker (str): The ticker to be used in the renaming process.
+            dry_run (bool): A boolean value that indicates if the renaming should be done or not.
+
+        Returns:
+            None
+        """
         folder_path = os.path.join(base_path, self.strategy.folder_name)
         # Iterate over each directory in the base path
         for root, dirs, files in os.walk(folder_path):

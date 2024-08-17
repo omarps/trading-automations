@@ -5,6 +5,15 @@ from utils.constants import OPTIONS, CONTRATOS
 
 
 class RenamerOptionsContractsStrategy(RenamerStrategy):
+    """
+    This class is responsible for renaming files in a contracts folder structure using an options contract strategy.
+
+    Attributes:
+        section_name (str): The section name for which the files are being renamed. (OPTIONS)
+        folder_name (str): The folder name for which the files are being renamed. (CONTRATOS)
+        pattern (str): The pattern to be used in the renaming process. (\d{4}-\d{2}-\d{2})
+        new_filename (str): The new filename to be used in the renaming process (folder_name_date_idx.ext)
+    """
     def __init__(self):
         super().__init__()
         self.section_name = OPTIONS
@@ -13,10 +22,17 @@ class RenamerOptionsContractsStrategy(RenamerStrategy):
         self.new_filename = "{folder_name}_{date}_{idx}.png"
 
     def rename(self, original_filepath, root, file, idx):
-        # Skip directories and only process files
-        if not os.path.isfile(original_filepath):
-            return None
+        """
+        Renames a file using an options contract strategy.
 
+        This method renames a file using the options contract strategy.
+
+        Args:
+            original_filepath (str): The original file path.
+            root (str): The root directory path.
+            file (str): The file name.
+            idx (int): The index of the file in the directory.
+        """
         # Extract the folder name
         folder_name = os.path.basename(root)
 

@@ -5,6 +5,15 @@ from utils.constants import GAMMAS
 
 
 class RenamerGammaStrategy(RenamerStrategy):
+    """
+    This class is responsible for renaming files in a gammas folder structure using a gamma strategy.
+
+    Attributes:
+        section_name (str): The section name for which the files are being renamed. (GAMMAS)
+        folder_name (str): The folder name for which the files are being renamed. (GAMMAS)
+        pattern (str): The pattern to be used in the renaming process. (Screenshot (\d{4}-\d{2}-\d{2}) at (\d{1,2})\.(\d{2})\.(\d{2})\s([ap]\.m\.))
+        new_filename (str): The new filename to be used in the renaming process (ticker_gamma_date-hour_minute_second.png)
+    """
     def __init__(self):
         super().__init__()
         self.section_name = GAMMAS
@@ -13,7 +22,20 @@ class RenamerGammaStrategy(RenamerStrategy):
         self.new_filename = "{ticker}_gamma_{date}-{hour:02d}_{minute}_{second}.png"
 
     def rename(self, original_filepath, root, file, idx=None):
-        folder_name = os.path.basename(root)
+        """
+        Renames a file using a gamma strategy.
+
+        This method renames a file using the gamma strategy.
+
+        Args:
+            original_filepath (str): The original file path.
+            root (str): The root directory path.
+            file (str): The file name.
+            idx (int): The index of the file in the directory. (not used)
+
+        Returns:
+            str: The new file path.
+        """
         match = re.match(self.pattern, file)
 
         if not match:

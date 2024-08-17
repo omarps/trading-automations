@@ -4,6 +4,15 @@ from utils.constants import GRAPHS, GRAFICOS
 
 
 class RenamerGraphStrategy(RenamerStrategy):
+    """
+    This class is responsible for renaming files in a graph folder structure using a graph strategy.
+
+    Attributes:
+        section_name (str): The section name for which the files are being renamed. (GRAPHS)
+        folder_name (str): The folder name for which the files are being renamed. (GRAFICOS)
+        pattern (str): The pattern to be used in the renaming process. (None)
+        new_filename (str): The new filename to be used in the renaming process (ticker_folder_name_date_time.ext)
+    """
     def __init__(self):
         super().__init__()
         self.section_name = GRAPHS
@@ -11,6 +20,20 @@ class RenamerGraphStrategy(RenamerStrategy):
         self.new_filename = "{ticker}_{folder_name}_{date_time}{ext}"
 
     def rename(self, original_filepath, root, file, idx=None):
+        """
+        Renames a file using a graph strategy.
+
+        This method renames a file using the graph strategy.
+
+        Args:
+            original_filepath (str): The original file path.
+            root (str): The root directory path.
+            file (str): The file name.
+            idx (int): The index of the file in the directory. (None)
+
+        Returns:
+            str: The new file path.
+        """
         folder_name = os.path.basename(root)
         if folder_name in file:
             return None  # Skip if filename contains the folder name already
