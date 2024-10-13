@@ -11,14 +11,15 @@ class RenamerGammaStrategy(RenamerStrategy):
     Attributes:
         section_name (str): The section name for which the files are being renamed. (GAMMAS)
         folder_name (str): The folder name for which the files are being renamed. (GAMMAS)
-        pattern (str): The pattern to be used in the renaming process. (Screenshot (\d{4}-\d{2}-\d{2}) at (\d{1,2})\.(\d{2})\.(\d{2})\s([ap]\.m\.))
+        pattern (str): The pattern to be used in the renaming process.
+        (Screenshot (\\d{4}-\\d{2}-\\d{2}) at (\\d{1,2})\\.(\\d{2})\\.(\\d{2})\\s([ap]\\.m\\.))
         new_filename (str): The new filename to be used in the renaming process (ticker_gamma_date-hour_minute_second.png)
     """
     def __init__(self):
         super().__init__()
         self.section_name = GAMMAS
         self.folder_name = GAMMAS
-        self.pattern = r'Screenshot (\d{4}-\d{2}-\d{2}) at (\d{1,2})\.(\d{2})\.(\d{2})\s([ap]\.m\.)'
+        self.pattern = r'Screenshot (\d{4}-\d{2}-\d{2}) at (\d{1,2})\.(\d{2})\.(\d{2})\s([ap]\.*m\.*)'
         self.new_filename = "{ticker}_gamma_{date}-{hour:02d}_{minute}_{second}.png"
 
     def rename(self, original_filepath, root, file, idx=None):

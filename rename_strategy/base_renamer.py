@@ -26,6 +26,7 @@ class BaseRenamer(Renamer):
         Returns:
             None
         """
+        rename_count = 0
         folder_path = os.path.join(base_path, self.strategy.folder_name)
         # Iterate over each directory in the base path
         for root, dirs, files in os.walk(folder_path):
@@ -48,3 +49,6 @@ class BaseRenamer(Renamer):
                     else:
                         os.rename(original_filepath, new_filepath)
                         print(f"Renamed: {original_filepath} to {new_filepath}")
+                    rename_count += 1
+
+        print(f"Renamed {rename_count} files in {folder_path}")

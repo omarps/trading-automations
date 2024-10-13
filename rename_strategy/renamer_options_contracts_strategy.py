@@ -1,5 +1,6 @@
 import os
 import re
+from datetime import datetime
 from rename_strategy.renamer_strategy import RenamerStrategy
 from utils.constants import OPTIONS, CONTRATOS
 
@@ -11,7 +12,7 @@ class RenamerOptionsContractsStrategy(RenamerStrategy):
     Attributes:
         section_name (str): The section name for which the files are being renamed. (OPTIONS)
         folder_name (str): The folder name for which the files are being renamed. (CONTRATOS)
-        pattern (str): The pattern to be used in the renaming process. (\d{4}-\d{2}-\d{2})
+        pattern (str): The pattern to be used in the renaming process. (\\d{4}-\\d{2}-\\d{2})
         new_filename (str): The new filename to be used in the renaming process (folder_name_date_idx.ext)
     """
     def __init__(self):
@@ -36,16 +37,30 @@ class RenamerOptionsContractsStrategy(RenamerStrategy):
         # Extract the folder name
         folder_name = os.path.basename(root)
 
+        # Skip it if folder_name already matches the pattern
+        # Example: SPY241010C577_2024-10-10_2.png
+        ticker = 'SPY'
+        pattern = f'{ticker}\\d{{6}}[CP]\\d{{3,4}}_\\d{{4}}-\\d{{2}}-\\d{{2}}_\\d+.png'
+        if re.match(pattern, file):
+            return None
+
         filename, ext = os.path.splitext(file)
         parts = filename.split('_')
         if len(parts) < 2:
-            return None  # Skip files that don't match the expected pattern
+            # match pattern
+            match = re.match(self.pattern, file)
+            if not match:
+                return None
 
-        match = re.match(self.pattern, file)
-        if not match:
-            return None
+            # Extract date from filename
+            date = match.group(1)
+        else:
+            # Include SPYDojis folder
 
-        date = match.group(1)
+            # Extract date from file's creation date
+            creation_time = os.path.getctime(original_filepath)
+            date = datetime.fromtimestamp(creation_time).strftime('%Y-%m-%d')
+
         new_filename = self.new_filename.format(folder_name=folder_name, date=date, idx=idx)
         new_filepath = os.path.join(root, new_filename)
         return new_filepath
