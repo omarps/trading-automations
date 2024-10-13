@@ -34,6 +34,8 @@ def _flatten_graph_folder(output_path):
 
 
 # TODO: review move option
+# TODO: group by months
+# TODO: move parts only
 def move_and_restructure(input_path, base_path, date, operation="copy"):
     print(f"Moving and restructuring files: {operation}")
 
@@ -49,3 +51,4 @@ def move_and_restructure(input_path, base_path, date, operation="copy"):
     _flatten_graph_folder(full_output_path)
 
     print(f"Folder structure moved and restructured at: {full_output_path}")
+    # TODO: print md full path

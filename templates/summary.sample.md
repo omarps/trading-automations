@@ -4,12 +4,20 @@ Fecha: {{date}}
 
 ## PDT
 
-- Día de la semana: (MMJVL, STA)
+- Día de la semana: {{weekday}}. ({{weekday_event}})
 - Contexto Mercado:
-- VIX:
+- VIX: {{vix}}
 - VWAP:
 - Gamma:
 - Fibo:
+
+## Audio
+
+- Muros Call, Put.
+- Quant R, S.
+- Trigger, Diario.
+- Zonas Giro, Alcista.
+- Rango fluctuación.
 
 ## APM
 
@@ -21,10 +29,23 @@ Fecha: {{date}}
 
 ## Midday
 
+- YT:
+- Muros Call, Put.
+
 ## Closing
+
+- YT:
+- Muros Call, Put.
 
 ## Notas
 
+- Inicio:
+- Desayuno:
+
+## Resumen
+
 ## Contratos
 
-### .SPY240700C000
+### .SPY
+
+### SPYDojis
