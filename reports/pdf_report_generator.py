@@ -33,8 +33,8 @@ class PDFReportGenerator(ReportGenerator):
         self.strategies = [
             GeneratePDFMdStrategy(),
             GeneratePDFGraphsStrategy(),
-            GeneratePDFOptionsStrategy(),
             GeneratePDFGenericStrategy(GAMMAS),
+            GeneratePDFOptionsStrategy(),
             GeneratePDFGenericStrategy(SCREENSHOTS),
             GeneratePDFGenericStrategy(OTHERS)
         ]
@@ -47,6 +47,7 @@ class PDFReportGenerator(ReportGenerator):
         """
         print("Generating PDF file...")
 
+        # TODO: Replace single report page.
         for strategy in self.strategies:
             context = PDFGeneratorContext(strategy)
             context.generate_pdf(self.base_path, self.date, self.ticker)

@@ -1,0 +1,19 @@
+author: Omar Palomino
+date: {{date}}
+ticker: {{ticker}}
+contract: {{contract}}
+strike: {{strike}}
+call_put: {{call_put}}
+transactions:
+  - contract_1:
+    time: {{entry_time}}
+    comments: {{comments}}
+    strategy: {{strategy}}
+    sentiments: {{sentiments}}
+    signal: {{signal}}
+    quantity: {{entry_quantity}}
+    price: {{entry_price}}
+    risk: {{risk}}
+    target: {{target}}
+    max: {{max}}
+    paper_real: {{paper_real}}

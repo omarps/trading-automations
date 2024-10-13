@@ -36,6 +36,7 @@ class YamlReportGenerator(ReportGenerator):
         This method constructs the report title, author, summary, and sections including graphs, options, gammas,
         screenshots, and others.
         """
+        # TODO: Replace with report.sample.yaml
         self.data = {
             "title": f"{self.ticker} {self.date[:4]}-{self.date[4:6]}-{self.date[6:]}",
             "ticker": self.ticker,
@@ -101,8 +102,11 @@ class YamlReportGenerator(ReportGenerator):
         options_section = {OPTIONS: []}
         if os.path.exists(options_path):
             sorted_folders = extract_contract_titles(os.path.join(full_path, f"{self.ticker}_{self.date}_summary.md"))
+            # TODO: use extract_contract_contents
+            # TODO: Add summary seccion with screenshot
             sorted_folders = list(map(lambda title: title.lstrip('.'), sorted_folders))
             for option_folder in sorted_folders:
+                # TODO: use option.yaml
                 option_path = os.path.join(options_path, option_folder)
                 if os.path.isdir(option_path):
                     option_data = {option_folder: [os.path.basename(path) for path in get_image_paths(option_path)]}
