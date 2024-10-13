@@ -1,7 +1,6 @@
 import os
-import sys
 from dotenv import load_dotenv
-from datetime import datetime
+from utils import dates
 
 from reports.pdf_report_generator import PDFReportGenerator
 from reports.yaml_report_generator import YamlReportGenerator
@@ -11,8 +10,7 @@ load_dotenv()
 
 
 def run():
-    # Use the first command-line argument if provided, otherwise use today's date in the format YYYYMMDD
-    date = sys.argv[1] if len(sys.argv) > 1 else datetime.now().strftime("%Y%m%d")
+    date = dates.get_date_param()
     base_path = os.getenv("BASE_PATH")
     ticker = os.getenv("TICKER")
 

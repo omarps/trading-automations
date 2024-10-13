@@ -1,7 +1,6 @@
 import os
-import sys
-from datetime import datetime
 from dotenv import load_dotenv
+from utils import dates
 from resources.rename import rename_files_in_folders
 from resources.move import move_and_restructure
 
@@ -9,7 +8,7 @@ load_dotenv()
 
 
 def run():
-    date = sys.argv[1] if len(sys.argv) > 1 else datetime.now().strftime("%Y%m%d")
+    date = dates.get_date_param()
 
     # Get parameters from environment variables
     input_path = os.getenv("INPUT_PATH")
