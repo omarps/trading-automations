@@ -20,7 +20,7 @@ class BaseRenamer(Renamer):
 
         Args:
             base_path (str): The base path where the files are located.
-            ticker (str): The ticker to be used in the renaming process.
+            ticker (str): The ticker to be used in the renaming process. (default is 'SPY')
             dry_run (bool): A boolean value that indicates if the renaming should be done or not.
 
         Returns:
@@ -41,7 +41,7 @@ class BaseRenamer(Renamer):
                 original_filepath = os.path.join(root, file)
 
                 # New filepath is returned by the strategy
-                new_filepath = self.strategy.rename(original_filepath, root, file, idx)
+                new_filepath = self.strategy.rename(original_filepath, root, file, idx, ticker)
 
                 if new_filepath:
                     if dry_run:

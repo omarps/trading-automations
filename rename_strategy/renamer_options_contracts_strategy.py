@@ -22,7 +22,7 @@ class RenamerOptionsContractsStrategy(RenamerStrategy):
         self.pattern = r'(\d{4}-\d{2}-\d{2})'
         self.new_filename = "{folder_name}_{date}_{idx}.png"
 
-    def rename(self, original_filepath, root, file, idx):
+    def rename(self, original_filepath, root, file, idx=None, ticker='SPY'):
         """
         Renames a file using an options contract strategy.
 
@@ -33,6 +33,7 @@ class RenamerOptionsContractsStrategy(RenamerStrategy):
             root (str): The root directory path.
             file (str): The file name.
             idx (int): The index of the file in the directory.
+            ticker (str): The ticker to be used in the renaming process. (default is 'SPY')
         """
         # Extract the folder name
         folder_name = os.path.basename(root)

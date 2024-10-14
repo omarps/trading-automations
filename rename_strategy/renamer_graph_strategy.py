@@ -19,7 +19,7 @@ class RenamerGraphStrategy(RenamerStrategy):
         self.folder_name = GRAFICOS
         self.new_filename = "{ticker}_{folder_name}_{date_time}{ext}"
 
-    def rename(self, original_filepath, root, file, idx=None):
+    def rename(self, original_filepath, root, file, idx=None, ticker='SPY'):
         """
         Renames a file using a graph strategy.
 
@@ -30,6 +30,7 @@ class RenamerGraphStrategy(RenamerStrategy):
             root (str): The root directory path.
             file (str): The file name.
             idx (int): The index of the file in the directory. (None)
+            ticker (str): The ticker to be used in the renaming process. (default is 'SPY')
 
         Returns:
             str: The new file path.

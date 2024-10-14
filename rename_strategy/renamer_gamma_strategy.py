@@ -22,7 +22,7 @@ class RenamerGammaStrategy(RenamerStrategy):
         self.pattern = r'Screenshot (\d{4}-\d{2}-\d{2}) at (\d{1,2})\.(\d{2})\.(\d{2})\s([ap]\.*m\.*)'
         self.new_filename = "{ticker}_gamma_{date}-{hour:02d}_{minute}_{second}.png"
 
-    def rename(self, original_filepath, root, file, idx=None):
+    def rename(self, original_filepath, root, file, idx=None, ticker='SPY'):
         """
         Renames a file using a gamma strategy.
 
@@ -33,6 +33,7 @@ class RenamerGammaStrategy(RenamerStrategy):
             root (str): The root directory path.
             file (str): The file name.
             idx (int): The index of the file in the directory. (not used)
+            ticker (str): The ticker to be used in the renaming process. (default is 'SPY')
 
         Returns:
             str: The new file path.

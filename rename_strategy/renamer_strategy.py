@@ -22,7 +22,7 @@ class RenamerStrategy(ABC):
         self.new_filename = None
 
     @abstractmethod
-    def rename(self, original_filepath, root, file, idx):
+    def rename(self, original_filepath, root, file, idx=None, ticker='SPY'):
         """
         Renames a file using a specific strategy.
 
@@ -32,7 +32,8 @@ class RenamerStrategy(ABC):
             original_filepath (str): The original file path.
             root (str): The root directory path.
             file (str): The file name.
-            idx (int): The index of the file in the directory.
+            idx (int): The index of the file in the directory. (None)
+            ticker (str): The ticker to be used in the renaming process. (default is 'SPY')
 
         Returns:
             str: The new file path.

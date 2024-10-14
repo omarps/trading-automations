@@ -3,6 +3,7 @@ import re
 import datetime
 import inflect
 from rename_strategy.renamer_strategy import RenamerStrategy
+from resources import images
 
 DEFAULT_PATTERN = r'IMG_(\d+)'
 DEFAULT_NEW_FILENAME = "{ticker}_{section_name}_{formatted_creation_time}_{file}"
@@ -47,7 +48,7 @@ class RenamerDefaultStrategy(RenamerStrategy):
         self.pattern = pattern if pattern is not None else DEFAULT_PATTERN
         self.new_filename = new_filename if new_filename is not None else DEFAULT_NEW_FILENAME
 
-    def rename(self, original_filepath, root, file, idx=None):
+    def rename(self, original_filepath, root, file, idx=None, ticker='SPY'):
         """
         Renames a file using the default strategy.
 
@@ -59,16 +60,25 @@ class RenamerDefaultStrategy(RenamerStrategy):
             root (str): The root directory path.
             file (str): The file name.
             idx (int): The index of the file in the directory. (default is None)
+            ticker (str): The ticker to be used in the renaming process. (default is 'SPY')
         """
         match = re.match(self.pattern, file)
 
         if not match:
             return None
 
+        # Get file image orientation
+        orientation = images.get_image_orientation(original_filepath)
+        # Rotate if horizontal
+        if orientation == 'Horizontal':
+            images.rotate_image(original_filepath, original_filepath)
+
+        # Rename file using creation time
         creation_time = os.path.getctime(original_filepath)
-        formatted_creation_time = datetime.datetime.fromtimestamp(creation_time).strftime("%Y-%m-%d_%H-%M-%S")
+        # formatted_creation_time = datetime.datetime.fromtimestamp(creation_time).strftime("%Y-%m-%d_%H-%M-%S")
+        formatted_creation_time = datetime.datetime.fromtimestamp(creation_time).strftime("%Y-%m-%d")
         new_filename = self.new_filename.format(
-            ticker='SPY', # introduce parameter
+            ticker='SPY',  # introduce parameter
             section_name=singularize_section_name(self.section_name),
             formatted_creation_time=formatted_creation_time,
             file=file
