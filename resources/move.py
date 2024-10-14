@@ -36,11 +36,15 @@ def _flatten_graph_folder(output_path):
 # TODO: review move option
 # TODO: group by months
 # TODO: move parts only
-def move_and_restructure(input_path, base_path, date, operation="copy"):
+# operation = "copy" if dry_run else "move"
+def move_and_restructure(input_path, base_path, date, operation="copy", suffix=""):
     print(f"Moving and restructuring files: {operation}")
 
+    date_str = date + "-" + suffix if suffix else date
+
     # Create the base output path
-    full_output_path = os.path.join(base_path, date)
+    full_output_path = os.path.join(base_path, date_str)
+
     # Create the base output directory if it does not exist
     if not os.path.exists(full_output_path):
         os.makedirs(full_output_path)

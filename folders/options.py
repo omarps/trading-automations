@@ -107,6 +107,42 @@ def create_folder_structure(base_path, date):
     print(f"Folder structure created at: {base_path}")
 
 
+def create_folder_structure_week(base_path, date):
+    # If path exists ask if you want to overwrite or exit
+    if os.path.exists(base_path):
+        overwrite = input(f"Folder structure already exists at {base_path}. Do you want to overwrite it? (y/n): ")
+        if overwrite.lower() != "y":
+            print("Exiting...")
+            return
+    else:
+        # Create the base directory if it does not exist
+        os.makedirs(base_path)
+
+    # Define the folder structure
+    folder_structure = [GRAFICOS, SCREENSHOTS, OTHERS]
+
+    # Create the folder structure
+    for folder in folder_structure:
+        folder_path = os.path.join(base_path, folder)
+        create_or_clear_folder(folder_path)
+
+    # Add a summary file to the folder
+    # with name format pdts_{date}_summary.md
+    # based on the summary.sample.utils file
+    summary_file = os.path.join(base_path, f"pdts_{date}_summary.md")
+    sample_md = os.path.join(os.path.dirname(__file__), "../templates", "pdts_summary.sample.md")
+    with open(sample_md, "r") as f:
+        content = f.read()
+
+        content = content.replace("{{date}}", f"<u>{date}</u>")
+
+        with open(summary_file, "w") as f:
+            f.write(content)
+
+    print(f"Folder structure created at: {base_path}")
+
+
+
 def extract_contract_details(contract, ticker="SPY"):
     # Assuming the contract format is "TICKER DATE C/P STRIKE"
     if not contract.startswith(ticker) or len(contract) < len(ticker) + 8:
@@ -174,18 +210,22 @@ def add_options_folders(input_path, date, ticker):
 def run():
     date = get_date_param()
     input_path = os.getenv("INPUT_PATH")
+    week_path = os.getenv("WEEK_PATH")
     ticker = os.getenv("TICKER")
 
     # Ask for which folder option to run and execute based on the input
     option = input(
         "Which option do you want to run?\n"
-        "1: Create folder structure\n"
-        "2: Add options folders\n"
+        "1: Create folder structure (PDT)\n"
+        "2: Add options folder (PDT)s\n"
+        "3: Create folder structure (Week1)\n"
     )
     if option == "1":
         create_folder_structure(input_path, date)
     elif option == "2":
         add_options_folders(input_path, date, ticker)
+    elif option == "3":
+        create_folder_structure_week(week_path, date)
     else:
         print("Invalid option. Exiting...")
 

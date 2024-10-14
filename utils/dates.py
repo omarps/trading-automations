@@ -11,7 +11,23 @@ def get_latest_trading_day():
     return latest_trading_day.strftime('%Y%m%d')
 
 
-def get_date_param():
-    # Use the first command-line argument if provided, otherwise use the latest trading day
-    date = sys.argv[1] if len(sys.argv) > 1 else get_latest_trading_day()
+def get_latest_week_day():
+    today = datetime.now()
+
+    # Get Sunday of the current week
+    sunday = today + timedelta(days=(6 - today.weekday()))
+
+    return sunday.strftime('%Y%m%d')
+
+
+def get_date_param(date_type="trading"):
+    # Use the first command-line argument if provided
+    if len(sys.argv) > 1:
+        return sys.argv[1]
+
+    # otherwise use the latest trading day
+    if date_type == 'trading':
+        date = get_latest_trading_day()
+    else:
+        date = get_latest_week_day()
     return date
