@@ -17,8 +17,8 @@ def run():
     # Ask for which option to run for reports
     option = input(
         "Which report do you want to run?\n"
-        "1: Generate YAML\n"
-        "2: Generate PDF\n"
+        "1: Generate YAML (PDT)\n"
+        "2: Generate PDF (PDT)\n"
     )
 
     if option == "1":

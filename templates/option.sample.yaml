@@ -5,7 +5,7 @@ contract: {{contract}}
 strike: {{strike}}
 call_put: {{call_put}}
 transactions:
-  - contract_1:
+  - id: {{id}}
     time: {{entry_time}}
     comments: {{comments}}
     strategy: {{strategy}}

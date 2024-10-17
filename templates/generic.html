@@ -8,12 +8,13 @@
   <body>
     <h1>{{ticker}} {{title}}</h1>
 
-    {% for i in range(0, data|length, 4) %}
+    <div class="graphs--graph--two-screenshots--table">
       <table>
+      {% for i in range(0, data|length, 6) %}
         {% for j in range(2) %}
           <tr>
-            {% for k in range(2) %}
-              {% set index = i + j * 2 + k %}
+            {% for k in range(3) %}
+              {% set index = i + j * 3 + k %}
               {% if index < data|length %}
                 <td>
                   {{ data[index].image_name }}
@@ -27,7 +28,8 @@
             {% endfor %}
           </tr>
         {% endfor %}
+      {% endfor %}
       </table>
-    {% endfor %}
+    </div>
   </body>
 </html>

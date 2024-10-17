@@ -97,7 +97,6 @@ class PDFGenerationStrategy(ABC):
             FileNotFoundError: If the YAML file does not exist.
             yaml.YAMLError: If there is an error parsing the YAML file.
         """
-        # Method implementation here
         yaml_file_path = os.path.join(self.full_path, f"{self.ticker}_{self.date}_summary.yaml")
         with open(yaml_file_path, 'r') as file:
             summary_data = yaml.safe_load(file)

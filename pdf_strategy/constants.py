@@ -68,6 +68,8 @@ emoticon_to_unicode = {
 	"🩴": "\U0001FA74",  # Thong Sandal emoji
 	"🪫": "\U0001FAAB",  # Low Battery emoji
 	"📣": "\U0001F4E3",  # Megaphone emoji
+	"🏃": "\U0001F3C3",  # Person Running emoji
+	"♾️": "\u267E",  	  # Infinity emoji
 	"🐦‍⬛": "\U0001F426\U0000200D\U0001F3FB",  # Black bird emoji
 	"🇰🇷": "\U0001F1F0\U0001F1F7", # Korean flag emoji
 	"🇵🇪": "\U0001F1F5\U0001F1EA", # Peru flag emoji

@@ -2,6 +2,7 @@ import os
 import re
 from rename_strategy.renamer_strategy import RenamerStrategy
 from utils.constants import GAMMAS
+from resources import images
 
 
 class RenamerGammaStrategy(RenamerStrategy):
@@ -42,6 +43,12 @@ class RenamerGammaStrategy(RenamerStrategy):
 
         if not match:
             return None
+
+        # Get file image orientation
+        orientation = images.get_image_orientation(original_filepath)
+        # Rotate if horizontal
+        if orientation == 'Horizontal':
+            images.rotate_image(original_filepath, original_filepath)
 
         date = match.group(1)
         hour = int(match.group(2))

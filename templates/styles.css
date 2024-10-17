@@ -50,9 +50,26 @@ li {
     height: auto;
 }
 
-.graphs--graph--two-per-page img {
-    width: 70%;
+.graphs--graph--container table {
+    width: 100%;
     height: auto;
+}
+
+.graphs--graph--container tr {
+}
+
+.graphs--graph--container td {
+    max-width: 70%;
+}
+
+.graphs--graph--two-per-page img {
+    width: 100%;
+    height: auto;
+}
+
+.graphs--graph--two-per-page p {
+    width: 90%;
+    padding: 10px;
 }
 
 .graphs--graph--dojis img {
@@ -63,13 +80,14 @@ li {
     object-fit: contain;
 }
 
-.graphs--graph--two-screenshots {
+.graphs--graph--dojis p {
+    width: 100%;
 }
 
 .graphs--graph--two-screenshots img {
-    width: 60%;
+    width: 65%;
     height: auto;
-    padding: 10px;
+    padding: 30px;
 }
 
 .graphs--graph--gammas img {

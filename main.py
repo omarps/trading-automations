@@ -28,7 +28,7 @@ if __name__ == "__main__":
             "1: Folder Options\n"
             "2: Files Options\n"
             "3: Report Options\n"
-            "4: Exit\n"
+            "0: Exit\n"
         )
 
         # Add modules here
@@ -41,8 +41,8 @@ if __name__ == "__main__":
         elif option == "3":
             # 3. Report options
             generate.run()
-        elif option == "4":
-            # 4. Exit
+        elif option == "0":
+            # 0. Exit
             break
         else:
             print("Invalid option. Please try again.")

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,30 +14,71 @@
           <div class="graphs--title">
             <h2>{{option.name}}</h2>
           </div>
+
+          <p>{{option.transactions}}</p>
+
           {% for index, option_image in enumerate(option.option_images) %}
             <div class="graphs--subtitle">
               <h3>{{option_image.image_name}}</h3>
             </div>
 
+            <div class="graphs--graph--container">
+
             {% if 'dojis' in option.name|lower %}
-              <div class="graphs--graph--dojis">
-                <img
-                  alt="{{option_image.image_name}}"
-                  src="{{option_image.image_path}}"
-                />
-              </div>
-              <div class="pagebreak"></div>
+              <table>
+              <tr>
+                <td>
+                  <div class="graphs--graph--dojis">
+                    <img
+                      alt="{{option_image.image_name}}"
+                      src="{{option_image.image_path}}"
+                    />
+                  </div>
+                </td>
+                <td>
+                  {% if index == 0 %}
+                    <div class="graphs--graph--two-per-page">
+                      {% if option.strikes %}
+                        <p>{{option.strikes}}</p>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </td>
+              </tr>
+              </table>
             {% else %}
-              <div class="graphs--graph--two-per-page">
-                <img
-                  alt="{{option_image.image_name}}"
-                  src="{{option_image.image_path}}"
-                />
-              </div>
+              <table>
+              <tr>
+                <td class="graphs--graph--two-per-page">
+                  <img
+                    alt="{{option_image.image_name}}"
+                    src="{{option_image.image_path}}"
+                  />
+                </td>
+                <td class="graphs--graph--two-per-page">
+                  {% if index == 0 %}
+                    {% if option.strikes %}
+                      <p>{{option.strikes}}</p>
+                    {% endif %}
+                  {% else %}
+                    <!-- TODO: Improve this -->
+                    <p>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </p>
+                  {% endif %}
+                </td>
+              </tr>
+              </table>
               {% if (index + 1) % 2 == 0 and not loop.last %}
                 <div class="pagebreak"></div>
               {% endif %}
             {% endif %}
+            </div>
           {% endfor %}
         </div>
         {% if not loop.last %}

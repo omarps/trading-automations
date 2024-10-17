@@ -1,4 +1,5 @@
 import os
+import yaml
 from pdf_strategy.pdf_generation_strategy import PDFGenerationStrategy
 from utils.constants import OPTIONS, CONTRATOS
 
@@ -18,13 +19,15 @@ class GeneratePDFOptionsStrategy(PDFGenerationStrategy):
             options = options_section[self.section_name]
 
             option_array = list(map(lambda option: {
-                'name': list(option.keys())[0],
+                'name': option['name'],
+                "transactions": option['transactions'],
+                "strikes": option['strikes'] if 'strikes' in option else '',
                 'option_images': list(map(lambda image_tuple: {
                     'image_name': image_tuple[1],
-                    'image_path': f"file:///{os.path.join(self.full_path, self.folder_name, list(option.keys())[0], image_tuple[1])}",
+                    'image_path': f"file:///{os.path.join(self.full_path, self.folder_name, option['name'], image_tuple[1])}",
                     'pagebreak': (image_tuple[0] + 1) % 2 == 0,
                     'index': image_tuple[0] + 1
-                }, enumerate(option[list(option.keys())[0]])))
+                }, enumerate(option['images'])))
             }, options))
 
         html_text = self._render_html_text(self.section_name, option_array)

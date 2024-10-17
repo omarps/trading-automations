@@ -1,9 +1,46 @@
 import os
+import re
 import yaml
 from reports.report_generator import ReportGenerator
-from utils.md import extract_contract_titles
+from utils.md import extract_contract_titles, extract_contract_contents
 from utils.constants import *
 from reports.utils import get_image_paths
+
+
+# Regular expression patterns to extract the required variables
+qty_pattern = re.compile(r"Qty:\s*(\d+)")
+price_pattern = re.compile(r"Price:\s*([\d.]+)")
+# risk_pattern = re.compile(r"Risk:\s*([\d.]+)")
+target_pattern = re.compile(r"Target:\s*(\w+)")
+max_pattern = re.compile(r"Max:\s*([\d.]+)")
+
+
+def contract_transactions(contract_data, option_folder):
+    transactions = contract_data[option_folder] if contract_data[option_folder] else ""
+    return transactions
+
+
+def format_strike(qty, price, target, max_value):
+    return f"- Qty: {qty}, Price: {price}, 50%: {round(price + 0.6, 2)}, 30%: {round(price + 1.0, 2)}, 20%: {max_value} * [{target}]"
+
+
+def contract_strikes(transactions):
+    # Extracting the values using the regex patterns
+    qtys = qty_pattern.findall(transactions)
+    prices = price_pattern.findall(transactions)
+    # risks = risk_pattern.findall(transactions)
+    targets = target_pattern.findall(transactions)
+    max_values = max_pattern.findall(transactions)
+
+    strike_array = []
+    for i, _qty in enumerate(qtys):
+        qty = int(qtys[i])
+        price = float(prices[i])
+        target = targets[i]
+        max_value = float(max_values[i])
+        strike_array.append(format_strike(qty, price, target, max_value))
+
+    return '<br/>'.join(strike_array) if strike_array else ""
 
 
 class YamlReportGenerator(ReportGenerator):
@@ -101,15 +138,22 @@ class YamlReportGenerator(ReportGenerator):
         options_path = os.path.join(full_path, CONTRATOS)
         options_section = {OPTIONS: []}
         if os.path.exists(options_path):
-            sorted_folders = extract_contract_titles(os.path.join(full_path, f"{self.ticker}_{self.date}_summary.md"))
-            # TODO: use extract_contract_contents
-            # TODO: Add summary seccion with screenshot
+            summary_path = os.path.join(full_path, f"{self.ticker}_{self.date}_summary.md")
+            sorted_folders = extract_contract_titles(summary_path)
+
+            contract_data = extract_contract_contents(summary_path)
+
             sorted_folders = list(map(lambda title: title.lstrip('.'), sorted_folders))
             for option_folder in sorted_folders:
-                # TODO: use option.yaml
+                option_data = {"name": option_folder}
                 option_path = os.path.join(options_path, option_folder)
                 if os.path.isdir(option_path):
-                    option_data = {option_folder: [os.path.basename(path) for path in get_image_paths(option_path)]}
+                    option_data["images"] = [os.path.basename(path) for path in get_image_paths(option_path)]
+                    transactions = contract_transactions(contract_data, option_folder)
+                    option_data["transactions"] = transactions
+
+                    option_data["strikes"] = contract_strikes(transactions)
+
                     options_section[OPTIONS].append(option_data)
         self.data["sections"].append(options_section)
 

@@ -217,7 +217,7 @@ def run():
     option = input(
         "Which option do you want to run?\n"
         "1: Create folder structure (PDT)\n"
-        "2: Add options folder (PDT)s\n"
+        "2: Add options folders (PDT)\n"
         "3: Create folder structure (Week1)\n"
     )
     if option == "1":
