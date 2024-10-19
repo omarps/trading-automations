@@ -20,7 +20,7 @@ class RenamerGammaStrategy(RenamerStrategy):
         super().__init__()
         self.section_name = GAMMAS
         self.folder_name = GAMMAS
-        self.pattern = r'Screenshot (\d{4}-\d{2}-\d{2}) at (\d{1,2})\.(\d{2})\.(\d{2})\s([ap]\.*m\.*)'
+        self.pattern = r'Screenshot (\d{4}-\d{2}-\d{2}) at (\d{1,2})\.(\d{2})\.(\d{2})\s([ap]\.+m\.+)'
         self.new_filename = "{ticker}_gamma_{date}-{hour:02d}_{minute}_{second}.png"
 
     def rename(self, original_filepath, root, file, idx=None, ticker='SPY'):
@@ -57,9 +57,9 @@ class RenamerGammaStrategy(RenamerStrategy):
         period = match.group(5)
 
         # Convert hour to 24-hour format if necessary
-        if period == 'p.m.' and hour != 12:
+        if 'p.m.' in period and hour != 12:
             hour += 12
-        elif period == 'a.m.' and hour == 12:
+        elif 'a.m.' in period and hour == 12:
             hour = 0
 
         new_filename = self.new_filename.format(ticker='SPY', date=date, hour=hour, minute=minute, second=second)
