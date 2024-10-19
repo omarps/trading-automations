@@ -318,3 +318,7 @@ $RECYCLE.BIN/
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/trading-automations.iml
 /.idea/vcs.xml
+
+# Node
+node_modules/
+package-lock.json
