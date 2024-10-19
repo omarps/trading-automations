@@ -43,9 +43,9 @@ def contract_strikes(transactions):
     return '<br/>'.join(strike_array) if strike_array else ""
 
 
-class YamlReportGenerator(ReportGenerator):
+class PdtYamlReportGenerator(ReportGenerator):
     """
-    A class to generate YAML reports, inheriting from ReportGenerator.
+    A class to generate PDT YAML reports, inheriting from ReportGenerator.
 
     Attributes:
         base_path (str): The base path where the report files are stored.
@@ -110,17 +110,11 @@ class YamlReportGenerator(ReportGenerator):
             yaml.dump(self.data, yaml_file)
         print(f"YAML file created: {yaml_file_path}")
 
-    def _full_path(self):
-        """
-        Returns the full path to the report directory.
-        """
-        return os.path.join(self.base_path, self.date)
-
     def _add_graphs_section(self):
         """
         Adds the graphs section to the report data.
         """
-        full_path = self._full_path()
+        full_path = self.full_path()
         graphs_path = os.path.join(full_path, GRAFICOS)
         graphs_section = {GRAPHS: []}
         if os.path.exists(graphs_path):
@@ -134,7 +128,7 @@ class YamlReportGenerator(ReportGenerator):
         """
         Adds the options section to the report data.
         """
-        full_path = self._full_path()
+        full_path = self.full_path()
         options_path = os.path.join(full_path, CONTRATOS)
         options_section = {OPTIONS: []}
         if os.path.exists(options_path):
@@ -164,7 +158,7 @@ class YamlReportGenerator(ReportGenerator):
         Args:
             section_name (str): The name of the section.
         """
-        section_path = os.path.join(self._full_path(), section_name)
+        section_path = os.path.join(self.full_path(), section_name)
         section = {section_name: []}
         if os.path.exists(section_path):
             section[section_name] = [os.path.basename(path) for path in get_image_paths(section_path)]

@@ -2,14 +2,14 @@ import unittest
 from unittest.mock import patch, mock_open
 import os
 import yaml
-from reports.yaml_report_generator import YamlReportGenerator
+from reports.pdt_yaml_report_generator import PdtYamlReportGenerator
 
 class TestYamlReportGenerator(unittest.TestCase):
     def setUp(self):
         self.base_path = '/path/to/base'
         self.date = '20230101'
         self.ticker = 'SPY'
-        self.report_generator = YamlReportGenerator(self.base_path, self.date, self.ticker)
+        self.report_generator = PdtYamlReportGenerator(self.base_path, self.date, self.ticker)
 
     def test_process_report(self):
         self.report_generator.process_report()

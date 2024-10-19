@@ -27,12 +27,16 @@ class GeneratePDFMdStrategy(PDFGenerationStrategy):
     emoji image files are created and removed during the process.
     """
 
-    def __init__(self):
+    def __init__(self, suffix=None):
         """
         Initializes the `GeneratePDFMdStrategy` instance and sets the section attributes to "utils".
+
+        Args:
+            suffix (str, optional): The suffix to be added to the PDF filename. Default is None.
         """
         super().__init__()
         self.set_section_attributes(MD)
+        self.suffix = suffix
 
     def generate(self, base_path, date, ticker):
         """
@@ -42,10 +46,11 @@ class GeneratePDFMdStrategy(PDFGenerationStrategy):
             base_path (str): The base path where the markdown file is located.
             date (str): The date associated with the file.
             ticker (str): The ticker symbol associated with the file.
+            suffix (str, optional): The suffix to be added to the PDF filename. Default is None.
         """
         super().generate(base_path, date, ticker)
 
-        filename = os.path.join(self.full_path, f"{self.ticker}_{self.date}_summary.md")
+        filename = os.path.join(self._full_path(), f"{self.ticker}_{self.date}_summary.md")
         with open(filename, MODE_R, encoding=ENCODING_UTF) as file:
             # Read markdown text
             markdown_text = file.read()

@@ -21,14 +21,16 @@ class PDFGeneratorContext:
             Generates a PDF using the current strategy with the provided base path, date, and ticker.
     """
 
-    def __init__(self, strategy: PDFGenerationStrategy):
+    def __init__(self, strategy: PDFGenerationStrategy, suffix=None):
         """
         Initializes the PDFGeneratorContext with a specific PDF generation strategy.
 
         Args:
             strategy (PDFGenerationStrategy): The strategy to be used for generating PDFs.
+            suffix (str, optional): The suffix to be added to the PDF filename. Default is None.
         """
         self._strategy = strategy
+        self.suffix = suffix
 
     def set_strategy(self, strategy: PDFGenerationStrategy):
         """

@@ -1,5 +1,4 @@
 import os
-import yaml
 from pdf_strategy.pdf_generation_strategy import PDFGenerationStrategy
 from utils.constants import OPTIONS, CONTRATOS
 

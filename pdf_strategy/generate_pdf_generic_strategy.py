@@ -3,9 +3,10 @@ from pdf_strategy.pdf_generation_strategy import PDFGenerationStrategy
 
 
 class GeneratePDFGenericStrategy(PDFGenerationStrategy):
-    def __init__(self, section_name, folder_name=None):
+    def __init__(self, section_name, folder_name=None, suffix=None):
         super().__init__()
         self.set_section_attributes(section_name, folder_name)
+        self.suffix = suffix
 
     def generate(self, base_path, date, ticker):
         super().generate(base_path, date, ticker)

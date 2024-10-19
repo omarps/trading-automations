@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock, mock_open
 import os
 import shutil
-from reports.pdf_report_generator import PDFReportGenerator
+from reports.pdt_pdf_report_generator import PdtPDFReportGenerator
 
 
 class TestPDFReportGenerator(unittest.TestCase):
@@ -17,7 +17,7 @@ class TestPDFReportGenerator(unittest.TestCase):
         shutil.rmtree(self.base_path)
 
     def test_initialization(self):
-        generator = PDFReportGenerator(self.base_path, self.date, self.ticker)
+        generator = PdtPDFReportGenerator(self.base_path, self.date, self.ticker)
         self.assertEqual(generator.base_path, self.base_path)
         self.assertEqual(generator.date, self.date)
         self.assertEqual(generator.ticker, self.ticker)
@@ -26,7 +26,7 @@ class TestPDFReportGenerator(unittest.TestCase):
     @patch('reports.pdf_report_generator.PDFGeneratorContext')
     def test_process_report(self, MockPDFGeneratorContext):
         mock_context = MockPDFGeneratorContext.return_value
-        generator = PDFReportGenerator(self.base_path, self.date, self.ticker)
+        generator = PdtPDFReportGenerator(self.base_path, self.date, self.ticker)
         generator.process_report()
         self.assertEqual(mock_context.generate_pdf.call_count, 6)
 
@@ -36,7 +36,7 @@ class TestPDFReportGenerator(unittest.TestCase):
     @patch('os.makedirs')
     @patch('os.remove')
     def test_write_report(self, mock_remove, mock_makedirs, mock_open, MockPdfReader, MockPdfWriter):
-        generator = PDFReportGenerator(self.base_path, self.date, self.ticker)
+        generator = PdtPDFReportGenerator(self.base_path, self.date, self.ticker)
         generator._report_filenames = MagicMock(return_value={'part1': 'file1.pdf', 'part2': 'file2.pdf'})
 
         # Mock the PdfReader to avoid FileNotFoundError

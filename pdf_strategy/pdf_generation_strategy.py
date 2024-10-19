@@ -33,6 +33,7 @@ class PDFGenerationStrategy(ABC):
         folder_name (str): The folder name for which the report is generated.
         full_path (str): The full file path where the PDF will be saved.
         pdf_template (str): The template to be used for generating the PDF report.
+        suffix (str): The suffix to be added to the PDF filename.
     """
 
     def __init__(self):
@@ -43,6 +44,7 @@ class PDFGenerationStrategy(ABC):
         self.folder_name = None
         self.full_path = None
         self.pdf_template = None
+        self.suffix = None
 
     def set_section_attributes(self, section_name, folder_name=None):
         """
@@ -68,6 +70,7 @@ class PDFGenerationStrategy(ABC):
             base_path (str): The base directory path where the PDF will be saved.
             date (str): The date for which the report is generated, in 'YYYYMMDD' format.
             ticker (str): The ticker symbol for which the report is generated.
+            suffix (str, optional): The suffix to be added to the PDF filename. Default is None.
 
         Returns:
             None
@@ -77,7 +80,7 @@ class PDFGenerationStrategy(ABC):
         self.ticker = ticker
 
         # processed values
-        self.full_path = os.path.join(base_path, date)
+        self.full_path = self._full_path()
         self.pdf_filename = f"{ticker}_{date}_summary_{self.section_name}.pdf"
 
         pass
@@ -97,7 +100,7 @@ class PDFGenerationStrategy(ABC):
             FileNotFoundError: If the YAML file does not exist.
             yaml.YAMLError: If there is an error parsing the YAML file.
         """
-        yaml_file_path = os.path.join(self.full_path, f"{self.ticker}_{self.date}_summary.yaml")
+        yaml_file_path = os.path.join(self._full_path(), f"{self.ticker}_{self.date}_summary.yaml")
         with open(yaml_file_path, 'r') as file:
             summary_data = yaml.safe_load(file)
 
@@ -191,3 +194,11 @@ class PDFGenerationStrategy(ABC):
         Provides the summary filename for the generated PDF report.
         """
         return "{}_{}_summary_{}.pdf".format(self.ticker, self.date, self.section_name)
+
+    # TODO: Dry
+    def _full_path(self):
+        """
+        Returns the full path to the report directory.
+        """
+        date_str = self.date + "-" + self.suffix if self.suffix else self.date
+        return os.path.join(self.base_path, date_str)
